@@ -1,0 +1,10 @@
+service-ingress-hpa:
+  deployment:
+    enabled: true
+    type: "deployment"
+  minReplicas: 1
+  env:
+    NODE_CONFIG_ENV: develop
+    NODE_ENV: develop
+  rolloutNotifications:
+    slack: argo-cd-develop

@@ -1,0 +1,73 @@
+service-ingress-hpa:
+  type: platform
+  namespace: default
+  ports:
+    http:
+      enabled: true
+      port: 80
+    https:
+      enabled: false
+      port: 443
+    application:
+      http:
+        enabled: true
+        servicePort: 3000
+      https:
+        enabled: false
+  sessionAffinity: None
+  configmap:
+  limitsCpu: 400m
+  limitsMemory: 512Mi
+  requestsCpu: 50m
+  requestsMemory: 128Mi
+  restartPolicy: Always
+  ingress:
+    enabled: false
+  tls:
+    enabled: false
+  readinessProbe:
+    enabled: true
+    path: /_/health
+    delay: 5
+    period: 15
+    timeout: 3
+  livenessProbe:
+    enabled: true
+    path: /_/health
+    delay: 5
+    timeout: 3
+    period: 15
+    failureThreshhold: 3
+  hpaEnabled: true
+  minReplicas: 2
+  maxReplicas: 6
+  cpuTarget: 75
+  rolloutMaxSurge: 100%
+  rolloutMaxUnavailable: 50%
+  terminationGracePeriod: 30
+  image:
+    imageUrl: cron-timetable-service
+    tag: latest
+    pullPolicy: Never
+  secretName: '{{ .Release.Name }}-secrets'
+  sharedSecretName: 'shared-service-secret'
+  sharedSecrets:
+  podAnnotations:
+    prometheus.io/port: "3000"
+    prometheus.io/scrape: "true"
+  podLabels:
+    mongo-client: "true"
+    google-client: "true"
+    rabbitmq-client: "true"
+  rolloutNotifications:
+    enabled: true
+  networkPolicy:
+    enabled: true
+    ingress:
+      enabled: true
+      fromPodLabels:
+      - app: prometheus
+      - run: pippa-rest-api
+      - run: customer-service
+      
+  

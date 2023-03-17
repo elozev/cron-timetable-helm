@@ -1,0 +1,6 @@
+dependencies:
+- name: service-ingress-hpa
+  repository: gs://profile-helm-charts/charts
+  version: 2.2.0
+digest: sha256:283057d820d05c50cc4198205bb7a8c1fc7d17e39312bb6fcaba96e00203d311
+generated: "2023-01-20T15:26:30.887096Z"

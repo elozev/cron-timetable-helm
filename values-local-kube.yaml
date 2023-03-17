@@ -1,0 +1,6 @@
+service-ingress-hpa:
+  minReplicas: 1
+  maxReplicas: 1
+  env:
+    NODE_CONFIG_ENV: local-kube
+    NODE_ENV: develop

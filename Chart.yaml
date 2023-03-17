@@ -1,0 +1,8 @@
+apiVersion: v2
+description: cron-timetable-service
+name: cron-timetable-service
+version: 1.0.0
+dependencies:
+  - name: service-ingress-hpa
+    version: 2.2.0
+    repository: "@remote"

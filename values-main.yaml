@@ -1,0 +1,11 @@
+service-ingress-hpa:
+  deployment:
+    enabled: false
+    type: "deployment"
+  minReplicas: 4
+  maxReplicas: 20
+  env:
+    NODE_CONFIG_ENV: production
+    NODE_ENV: production
+  rolloutNotifications:
+    slack: argo-cd
